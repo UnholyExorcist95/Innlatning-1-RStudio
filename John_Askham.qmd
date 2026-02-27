@@ -1,0 +1,104 @@
+---
+title: "John Askham"
+format: html
+editor: visual
+---
+
+## 
+
+```{r}
+#| label: setup
+#| echo: fenced
+#| message: false
+
+# load packages here
+library(readxl)
+library(knitr)
+library(tidyverse)
+library(moderndive)
+library(waldo)
+# set theme for plotting
+# theme_set(theme_minimal()) 
+
+```
+
+> 4a) Read the provided Excel file "Folkatal_1985_2025.xlsx" into the object `folkatal`, skipping the metadata line. Display the object as simply as possible (do not use `kable()`).
+
+```{r}
+#| label: 4a
+#| echo: fenced
+
+# code here
+
+folkatal <- read_excel("data/Folkatal_1985_2025.xlsx", skip = 1)
+
+folkatal
+```
+
+> 4b) Note that many cells in column `Kyn` are `NA`. This is because R assumes empty cells in the Excel file to be `NA` (missing values). In this case, however, these cells are empty because the data provider only fills the first cell of the column until the value changes. Therefore, these are not truly missing values and should be filled. Pipe the imported data `folkatal` into a fill function from the `tidyr` package to fill the `NA` cells of column `Kyn` with the correct values. Save your results in an updated object `folkatal` and display it.
+
+```{r}
+#| label: 4b
+#| echo: fenced
+
+# code here
+
+folkatal <- folkatal |>
+  fill(Kyn, .direction = "down")
+
+kable(folkatal)
+
+```
+
+> 4c) Note that the column `Aldur` in `folkatal` is of type `chr` and contains numbers and text. Use a pipe and `mutate()` together with a string replacement function from `stringr` to modify the column so that it contains only the numbers. Save your results in an updated object `folkatal` and display it. Check that the type of column `Aldur` is still `chr` and do not change it here.
+
+```{r}
+#| label: 4c
+#| echo: fenced
+
+
+
+# code here
+folkatal <- folkatal |>
+  mutate(Aldur = str_remove(Aldur, " ár"))
+
+tibble(folkatal)
+
+```
+
+> > 4d) Next, consider the many columns that contain years as column names, of both type `chr` and `dbl`. Tidy the `folkatal` object by using a pivot function from the `tidyr` package, ensuring that you get two new columns, `Ár` and `Antal`, both of type `integer`. Note the warnings: "Warning: NAs introduced by coercion", that you will handle in the next question. Save your results in a new object `tidy_folkatal` and display it.
+
+```{r}
+#| label: 4d
+#| echo: fenced
+
+# code here
+
+
+#tidy_folkatal <- folkatal |>
+  
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```

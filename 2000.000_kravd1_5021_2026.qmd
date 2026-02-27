@@ -259,7 +259,7 @@ summary(lm_spec)
 -   The “Residuals:” in the summary output can be used as a quick check of the distribution assumption. Does the “Residuals:” section in this case indicate any problems? Explain your reasoning.
 
 ::: {.callout-tip title="Text answer to 2c)"}
-Write your answer here.
+No, the residuals are very symmetric. The median is close to 0, and the min, 1Q, 3Q, and Max are symmetric.
 :::
 
 > 2d) Create an `lm_regr` object to contain predictions and residuals for the model `lm_spec` and display the object `lm_regr`.

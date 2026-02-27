@@ -7,7 +7,7 @@ editor: visual
 ---
 
 ::: {.callout-tip title="Write your full name (if individual) or names (if group work) here"}
--   name 1
+-   name 1 John
 -   name 2, etc
 :::
 
@@ -358,7 +358,6 @@ Write your answer here.
 
 > 5e) Reuse the plot code you created in 5d). Add a similar curve of `Fólkatal` versus `Ár` from `arligt_folkatal` so that you get three curves in total - the previous two curves of `Fólkatal` per `Kyn`, described in the legend, and one additional curve of `Fólkatal` for the total population. We also want to include the third curve in the same legend. However, there is no column `Kyn` in `arligt_folkatal`. Therefore, for the curve of `Fólkatal` representing the total population, you cannot map color or shape to `Kyn`. Instead, map color and shape to the text "Bæði" to create an additional entry in the legend describing the total population. Modify `scale_color_manual()` in the plot code to define the colors for "Bæði", "Menn", and "Kvinnur" as "black", "blue", and "red", respectively.
 
- 
 ```{r}
 #| label: 5e
 #| echo: fenced

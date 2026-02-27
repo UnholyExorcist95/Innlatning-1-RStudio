@@ -1,0 +1,407 @@
+---
+title: "Kravd innlating 1"
+format:
+  html:
+    self-contained: true
+editor: visual
+---
+
+::: {.callout-tip title="Write your full name (if individual) or names (if group work) here"}
+-   name 1
+-   name 2, etc
+:::
+
+::: {.callout-tip title="Note"}
+-   Preferably, work in groups of 2-4 people although individual solutions to the assignment are allowed.
+-   Use a RStudio-project and put the provided data files into a directory named "data" under your project-directory.
+-   Use this quarto document as a template for this assignment in which you load the packages: `tidyverse, knitr, readxl, moderndive, waldo`.
+-   Use the provided code chunks and text boxes in the template to answer the exercises. There is a setup chunk and one code chunk for each question that are labelled corresponding to each question. Where there are questions to be answered with text, use the provided text-boxes below such questions.
+-   For the final solution, test and review the code and text answers before handing in.
+-   Each student should individually hand in their tested and reviewed solution even though it was made as group-work.
+-   When finished, name your individual documents like: "2000.000_kravd1_5021_2026.qmd" where you correct the numbers at the start to your student id number. Hand in both your quarto- and rendered html file through the Moodle-page for this course.
+-   All students in a group should have contributed equally to discussing and solving the exercises.
+-   Feed back will be given personally to individuals or groups. All students, working individually or in groups, must be able to orally answer questions about their understanding of code- and text answers to get the assignment approved.
+:::
+
+::: {.callout-tip title="About this assignment"}
+This assignment mainly covers what you have learned from chapters 1-5 in the Moderndive v2 textbook about the concept of reproducible research with the tidyverse tools for data visualization, data wrangling, data import and tidy data, as well as for simple linear regression. For data import, we also studied the R for Data Science 2e textbook: 7.2 Reading data from a file, that contains useful tips for data import.
+:::
+
+```{r}
+#| label: setup
+#| echo: fenced
+#| message: false
+
+# load packages here
+
+# set theme for plotting
+# theme_set(theme_minimal()) 
+
+```
+
+## Exercise 1
+
+> 1a) Read in the provided Excel files `MENS_EHF_EURO2026.xlsx` and `WOMENS_EHF_EURO2024.xlsx` with data on top scorers in the Men's EHF European Handball Championship 2026 and Women's EHF European Handball Championship 2024, which were downloaded from the EHF website. The data have column names (`Rank, Lastname, Firstname, Country, Matches, Shots, Goals, Efficiency`). Read the data into objects `top_men` and `top_women`, changing the types of the columns `Matches, Shots, Goals, Efficiency` to "numeric". Also, add the columns `Sex = "Men", Year = "2026"` in `top_men`, and `Sex = "Women", Year = "2024"` in `top_women`. Finally, bind the two objects `top_men` and `top_women` by rows into object `top_scorers`. Display the final object as simple as you can (not using `kable()`).
+
+```{r}
+#| label: 1a
+#| echo: fenced
+
+# code here
+```
+
+> We are now ready to plot the data `top_scorers` using `tidyverse` tools.
+
+> 1b) Use `ggplot()` to create a scatterplot of `Efficiency` versus `Shots` in `top_scorers`. Add a single linear regression line with a confidence band. Map both the shape and color of the data points to a combined text string containing `Sex` and `Year` to create a single legend with two lines describing the competition ("Men 2026" and "Women 2024"). Remove the legend title. Use an appropriate title for the plot, e.g., "Figure 1b: Top Scorers EHF Euro – describe plot", where "Figure 1b" refers to the plot for this question and "describe plot" is a short description of the plot.
+
+```{r}
+#| label: 1b
+#| echo: fenced
+
+# code here
+```
+
+> 1c) Use `ggplot()` to create a histogram of `Goals/Matches`, faceted by a combined text string containing `Sex` and `Year` for the competition. Add `scale_x_continuous()` and `scale_y_continuous()` with appropriate breaks. Label the y-axis "Count of Top Scorers". Use an appropriate title for the plot, e.g., "Figure 1c: Top Scorers EHF Euro – describe plot".
+
+```{r}
+#| label: 1c
+#| echo: fenced
+
+# code here
+```
+
+> In the following questions and exercises, always use an appropriate title for your plots, labeled similarly to your first two plots.
+
+> 1d) Use `ggplot()` to create a boxplot of `Goals/Matches` as the y-variable versus a combined text string of `Sex` and `Year` as the x-variable. Label the x-axis "Competition".
+
+```{r}
+#| label: 1d
+#| echo: fenced
+
+# code here
+```
+
+> 1e) Similarly, use `ggplot()` to create a boxplot of `Efficiency` as the y-variable versus a combined text string of `Sex` and `Year` as the x-variable. Label the x-axis "Competition".
+
+```{r}
+#| label: 1e
+#| echo: fenced
+
+# code here
+```
+
+> 1f) Plots are visually appealing, but sometimes a numerical summary of the data is also needed. In a pipe statement, pipe `top_scorers` into `mutate()` to add `Goals/Match = Goals/Matches`. Then, grouped by the two variables `Sex` and `Year`, use `reframe()` and `tidy_summary()` to create a numerical summary of `Matches, Shots, Goals, Goals/Match, Efficiency`. Exclude the columns `group` and `type` from the summary, `arrange()` the table by `column`, and save the output in `table_1f` (tip: it is a tibble 10 × 11). Display it using `kable()` with an appropriate caption, e.g., "Table 1f: Top Scorers EHF Euro – Summary Statistics".
+
+```{r}
+#| label: 1f
+#| echo: fenced
+
+# code here
+```
+
+> How do the boxplots in 1d) and 1e) compare with the table in 1f)?
+
+::: {.callout-tip title="Text answer to 1f"}
+Write your answer here.
+:::
+
+## Exercise 2
+
+> 2a) Modify your plot code from 1b). Add two new regression lines - one for each `Sex` - instead of the single regression line you created in 1b). Do not use confidence bands for the regression lines. Use a similar single legend as you made in 1b). However, use `scale_color_manual()` to set the color "black" for the regression line and for the data points for "Men 2026", and similarly set the color "red" for "Women 2024".
+
+```{r}
+#| label: 2a
+#| echo: fenced
+
+# code here
+```
+
+> 2b) Modify (simplify) your plot from 2a) into a facet plot. Here, you facet the plot by a combined text string containing `Sex` and `Year` to get 30 data points and one regression line in each facet. Do not map the shape or color of the data points. Therefore, you do not get colored points, or any legend. Colored points and a legend are not needed here, since the facets are described by the faceting variable (combined text string) shown by default. Use the default color for the regression lines and plot them with confidence bands.
+
+```{r}
+#| label: 2b
+#| echo: fenced
+
+# code here
+```
+
+> 2c) In the following, you will explore a linear regression model of the data in `top_scorers`, assuming that the same linear trend exists between `Efficiency` and `Shots` regardless of `Sex`. Therefore, we do not distinguish between men and women in the linear regression model.
+
+-   In Figure 2c, modify your code from 2b) to create a single scatterplot of `Efficiency` versus `Shots` in `top_scorers` with only one regression line. Still, do not map the shape or color of the data points.
+
+```{r}
+#| label: 2c.plot
+#| echo: fenced
+
+# code here
+```
+
+-   Create a model object `lm_spec` specifying a linear model of `Goals ~ Shots` with data `top_scorers`, and output the model summary using `summary(lm_spec)`.
+
+```{r}
+#| label: 2c.model
+#| echo: fenced
+
+# code here
+```
+
+-   The “Residuals:” in the summary output can be used as a quick check of the distribution assumption. Does the “Residuals:” section in this case indicate any problems? Explain your reasoning.
+
+::: {.callout-tip title="Text answer to 2c)"}
+Write your answer here.
+:::
+
+> 2d) Create an `lm_regr` object to contain predictions and residuals for the model `lm_spec` and display the object `lm_regr`.
+
+```{r}
+#| label: 2d
+#| echo: fenced
+
+# code here
+```
+
+> 2e) Use `ggplot()` to create three plots from the data in `lm_regr`:
+
+-   In Figure 2e.1, create a scatterplot of `x = Shots` and `y = residual` to produce a residuals plot.
+
+```{r}
+#| label: 2e.1
+#| echo: fenced
+
+# code here
+```
+
+-   In Figure 2e.2, create a boxplot of `y = residual` to produce a residuals boxplot.
+
+```{r}
+#| label: 2e.2
+#| echo: fenced
+
+# code here
+```
+
+-   In Figure 2e.3, create a QQ-plot with `sample = residual`.
+
+```{r}
+#| label: 2e.3
+#| echo: fenced
+
+# code here
+```
+
+> 2f) From your three plots in 2e), try to make your best estimate of how well the assumptions for using linear regression are fulfilled in our analysis of the model `lm_spec`.
+
+::: {.callout-tip title="Text answer to 2f"}
+Write your answer here.
+:::
+
+## Exercise 3
+
+> 3a) Use `ggplot()` and the data in `top_scorers` to create a density plot of the variable `Efficiency`.
+
+```{r}
+#| label: 3a
+#| echo: fenced
+
+# code here
+```
+
+> 3b) Use `ggplot()` and the data in `top_scorers` to create a histogram of the variable `Efficiency`. After displaying the default histogram, adjust the bins by selecting an appropriate number of bins, or by setting an appropriate binwidth (whichever you think works best).
+
+```{r}
+#| label: 3b
+#| echo: fenced
+
+# code here
+```
+
+> 3c) Use `ggplot()` and the data in `top_scorers` to overlay a density plot on the histogram of the variable `Efficiency` (tip: this can be a bit tricky to plot. Check the documentation or online resources to see how to make the bars of the histogram density-based before overlaying the density curve. Finally, adjust the bins or bin width of the density-based histogram to get the density curve to best fit the tops of the histogram bars).
+
+```{r}
+#| label: 3c
+#| echo: fenced
+
+# code here
+```
+
+> 3d) Use `ggplot()` and the data in `top_scorers` to create a density plot of the variable `Efficiency`, faceted by a combined text string containing `Sex` and `Year`, displayed with the two facets in a single column (one facet above the other).
+
+```{r}
+#| label: 3d
+#| echo: fenced
+
+# code here
+```
+
+> 3e) Use `ggplot()` and the data in `top_scorers` to create a histogram of the variable `Efficiency`, faceted by a combined text string containing `Sex` and `Year`, displayed with the two facets in a single column (one facet above the other). After displaying the default histogram, adjust the bins by selecting an appropriate number of bins, or by setting an appropriate binwidth (whichever you think works best).
+
+```{r}
+#| label: 3e
+#| echo: fenced
+
+# code here
+```
+
+> 3f) Use `ggplot()` and the data in `top_scorers` to overlay a density plot on the faceted histogram of the variable `Efficiency` in 3e). Adjust the bins or binwidth of the density-based histogram to get the density curve to best fit the tops of the histogram bars.
+
+```{r}
+#| label: 3f
+#| echo: fenced
+
+# code here
+```
+
+## Exercise 4
+
+> 4a) Read the provided Excel file "Folkatal_1985_2025.xlsx" into the object `folkatal`, skipping the metadata line. Display the object as simply as possible (do not use `kable()`).
+
+```{r}
+#| label: 4a
+#| echo: fenced
+
+# code here
+```
+
+> 4b) Note that many cells in column `Kyn` are `NA`. This is because R assumes empty cells in the Excel file to be `NA` (missing values). In this case, however, these cells are empty because the data provider only fills the first cell of the column until the value changes. Therefore, these are not truly missing values and should be filled. Pipe the imported data `folkatal` into a fill function from the `tidyr` package to fill the `NA` cells of column `Kyn` with the correct values. Save your results in an updated object `folkatal` and display it.
+
+```{r}
+#| label: 4b
+#| echo: fenced
+
+# code here
+```
+
+> 4c) Note that the column `Aldur` in `folkatal` is of type `chr` and contains numbers and text. Use a pipe and `mutate()` together with a string replacement function from `stringr` to modify the column so that it contains only the numbers. Save your results in an updated object `folkatal` and display it. Check that the type of column `Aldur` is still `chr` and do not change it here.
+
+```{r}
+#| label: 4c
+#| echo: fenced
+
+# code here
+```
+
+> 4d) Next, consider the many columns that contain years as column names, of both type `chr` and `dbl`. Tidy the `folkatal` object by using a pivot function from the `tidyr` package, ensuring that you get two new columns, `Ár` and `Antal`, both of type `integer`. Note the warnings: "Warning: NAs introduced by coercion", that you will handle in the next question. Save your results in a new object `tidy_folkatal` and display it.
+
+```{r}
+#| label: 4d
+#| echo: fenced
+
+# code here
+```
+
+> 4e) Note that some cells initially contained a dash `-` used by the data provider to denote "Veruliga null (ikki rundað)", i.e., zero values. In 4d), the cells containing a dash were automatically coerced to `NA`, which produced the warnings: "Warning: NAs introduced by coercion". Here, however, these values should be set to zero. Therefore, use a replacement function from `tidyr` to replace all `NA` in column `Antal` with `0`. Save the result in an updated `tidy_folkatal` and display it.
+
+```{r}
+#| label: 4e
+#| echo: fenced
+
+# code here
+```
+
+> 4f1) For pedagogical reasons, we imported and transformed the data in several steps given in questions 4a)–e). However, we could have done it all in a single pipe sentence. Create one pipe sentence that combines these steps. Save the output in `folk` and display it.
+
+```{r}
+#| label: 4f1
+#| echo: fenced
+
+# code here
+```
+
+> 4f2) Ensure that your `tidy_folkatal` and `folk` objects are exactly equal. This can be checked with `identical(x, y)` from base R, which returns`TRUE` if `x` and `y` are exactly equal or `FALSE` if not. If you get `FALSE`, use, for example `all.equal(x, y)` from base R, which returns `TRUE` if `x` and `y` are nearly equal and reports differences if not. Then, correct your code in 4f1) until `identical()` in 4f2) returns `TRUE`. A more modern alternative is to use `waldo::compare()` from the `waldo` package to compare and to report differences, if any. Then, fix your code in 4f1) until `identical()` returns `TRUE` and `waldo::compare()` reports "No differences".
+
+```{r}
+#| label: 4f2
+#| echo: fenced
+
+# code here
+```
+
+## Exercise 5
+
+> In this exercise, the variables are in the Faroese language, and you can also use Faroese for the plot titles.
+
+> 5a) Summarise `folk` grouped by `Ár` to find the total population `Fólkatal` for each year. Save the result in `arligt_folkatal` and display it.
+
+```{r}
+#| label: 5a
+#| echo: fenced
+
+# code here
+```
+
+> 5b) Use `ggplot()` to create a linegraph of `Fólkatal` versus `Ár` in `arligt_folkatal`. Also, include the data points.
+
+```{r}
+#| label: 5b
+#| echo: fenced
+
+# code here
+```
+
+> 5c) Summarise `folk` grouped by `Ár` and `Kyn` to find the total population `Fólkatal` for each `Ár` and for each `Kyn`. Save the result in `kyn_folkatal` and display it.
+
+```{r}
+#| label: 5c
+#| echo: fenced
+
+# code here
+```
+
+> 5d) Use `ggplot()` to create a linegraph of `Fólkatal` versus `Ár` in `kyn_folkatal` so that you get two curves - one for each `Kyn`. Also, include the data points for each `Kyn`. To obtain a single legend, map the color of the lines to `Kyn`, and map both the color and shape of the points to `Kyn`. Use `scale_color_manual()` to set the color for "Menn" to "blue" and for "Kvinnur" to "red".
+
+```{r}
+#| label: 5d
+#| echo: fenced
+
+# code here
+```
+
+> 5e) Reuse the plot code you created in 5d). Add a similar curve of `Fólkatal` versus `Ár` from `arligt_folkatal` so that you get three curves in total - the previous two curves of `Fólkatal` per `Kyn`, described in the legend, and one additional curve of `Fólkatal` for the total population. We also want to include the third curve in the same legend. However, there is no column `Kyn` in `arligt_folkatal`. Therefore, for the curve of `Fólkatal` representing the total population, you cannot map color or shape to `Kyn`. Instead, map color and shape to the text "Bæði" to create an additional entry in the legend describing the total population. Modify `scale_color_manual()` in the plot code to define the colors for "Bæði", "Menn", and "Kvinnur" as "black", "blue", and "red", respectively.
+
+ 
+```{r}
+#| label: 5e
+#| echo: fenced
+
+# code here
+```
+
+> 5f1) `kyn_folkatal` has the columns `Ár, Kyn, Fólkatal`, while `arligt_folkatal` only has the columns `Ár, Fólkatal`. Pipe `arligt_folkatal` into the same structure as `kyn_folkatal`. Add a column `Kyn` with the value "Bæði", reorder the columns, and bind it to `kyn_folkatal`. Save the output as `alt_folkatal` and display it. Check that it has the columns `Ár, Kyn, Fólkatal` with data types `int, chr, int`, respectively, and that the number of rows equals the number of rows in `kyn_folkatal` plus the number of rows in `arligt_folkatal`.
+
+```{r}
+#| label: 5f1
+#| echo: fenced
+
+# code here
+```
+
+> 5f2) Simplify your plot code from 5e) by using only `alt_folkatal` as the data source to create a plot identical to the one in 5e).
+
+```{r}
+#| label: 5f2
+#| echo: fenced
+
+# code here
+```
+
+> 5f3) Now, we want to change the order of the legend text. Convert the `Kyn` column in `alt_folkatal` to a factor variable with levels "Bæði", "Menn", "Kvinnur". Save the changes in an updated `alt_folkatal` and display it. Check that it now has the columns `Ár, Kyn, Fólkatal` with data types `int, fctr, int`, respectively.
+
+```{r}
+#| label: 5f3
+#| echo: fenced
+
+# code here
+```
+
+> 5f4) Run the exact same code as in 5f2) using the updated `alt_folkatal`. Note what changed as compared to the plot in 5f2)?
+
+```{r}
+#| label: 5f4
+#| echo: fenced
+
+# code here
+```
+
+::: {.callout-tip title="Text answer to 5f4"}
+Write your answer here.
+:::

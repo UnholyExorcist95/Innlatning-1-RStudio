@@ -183,8 +183,7 @@ kable(table_1f,
 
 ::: {.callout-tip title="Text answer to 1f"}
 Write your answer here.
-The boxplot in 1d) and 1e) match well with table in 1f. The statistics min, Q1, median, Q3, and max are visually very similar 
-to what is described in the table in 1f. 
+The boxplots in 1d) and 1e) match well with the table in 1f. The statistics min, Q1, median, Q3, and max from the table are very similar to what is shown in the boxplots. 
 :::
 
 ## Exercise 2

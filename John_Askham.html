@@ -9402,9 +9402,183 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># code here</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#tidy_folkatal &lt;- folkatal |&gt;</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Eg eri ikki 100% sikkur í at eg havi gjørt hettar rætt</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Men eg fái tað warnng í uppgávu orðingin sigur skal koma.</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>tidy_folkatal <span class="ot">&lt;-</span> folkatal <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(Kyn, Aldur),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Ár"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Antal"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_transform =</span> <span class="fu">list</span>(<span class="at">Antal =</span> as.character)) <span class="sc">|&gt;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    Å<span class="at">r =</span> <span class="fu">as.integer</span>(Ár),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Antal =</span> <span class="fu">as.integer</span>(Antal)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `Antal = as.integer(Antal)`.
+Caused by warning:
+! NAs introduced by coercion</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: 4d</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>tidy_folkatal</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8,282 × 5
+   Kyn     Aldur Ár    Antal    År
+   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;
+ 1 Kvinnur 0     1985    336  1985
+ 2 Kvinnur 0     1986    357  1986
+ 3 Kvinnur 0     1987    388  1987
+ 4 Kvinnur 0     1988    395  1988
+ 5 Kvinnur 0     1989    429  1989
+ 6 Kvinnur 0     1990    436  1990
+ 7 Kvinnur 0     1991    445  1991
+ 8 Kvinnur 0     1992    438  1992
+ 9 Kvinnur 0     1993    388  1993
+10 Kvinnur 0     1994    369  1994
+# ℹ 8,272 more rows</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>4e) Note that some cells initially contained a dash <code>-</code> used by the data provider to denote “Veruliga null (ikki rundað)”, i.e., zero values. In 4d), the cells containing a dash were automatically coerced to <code>NA</code>, which produced the warnings: “Warning: NAs introduced by coercion”. Here, however, these values should be set to zero. Therefore, use a replacement function from <code>tidyr</code> to replace all <code>NA</code> in column <code>Antal</code> with <code>0</code>. Save the result in an updated <code>tidy_folkatal</code> and display it.</p>
+</blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: 4e</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># code here</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Did this to double check the amount of "NA" within the table</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(tidy_folkatal<span class="sc">$</span>Antal))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>tidy_folkatal <span class="sc">|&gt;</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(Antal))</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>tidy_folkatal <span class="ot">&lt;-</span> tidy_folkatal <span class="sc">|&gt;</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Antal =</span> <span class="fu">replace_na</span>(Antal, <span class="dv">0</span>))</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(tidy_folkatal<span class="sc">$</span>Antal))</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>tidy_folkatal <span class="sc">|&gt;</span> </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(Antal))</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>tidy_folkatal</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 85
+# A tibble: 85 × 5
+   Kyn     Aldur Ár    Antal    År
+   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;
+ 1 Kvinnur 97    1985     NA  1985
+ 2 Kvinnur 98    1985     NA  1985
+ 3 Kvinnur 98    1986     NA  1986
+ 4 Kvinnur 98    1996     NA  1996
+ 5 Kvinnur 99    1985     NA  1985
+ 6 Kvinnur 99    1986     NA  1986
+ 7 Kvinnur 99    1987     NA  1987
+ 8 Kvinnur 99    1993     NA  1993
+ 9 Kvinnur 99    1997     NA  1997
+10 Kvinnur 99    1998     NA  1998
+# ℹ 75 more rows
+[1] 0
+# A tibble: 0 × 5
+# ℹ 5 variables: Kyn &lt;chr&gt;, Aldur &lt;chr&gt;, Ár &lt;chr&gt;, Antal &lt;int&gt;, År &lt;int&gt;
+# A tibble: 8,282 × 5
+   Kyn     Aldur Ár    Antal    År
+   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;
+ 1 Kvinnur 0     1985    336  1985
+ 2 Kvinnur 0     1986    357  1986
+ 3 Kvinnur 0     1987    388  1987
+ 4 Kvinnur 0     1988    395  1988
+ 5 Kvinnur 0     1989    429  1989
+ 6 Kvinnur 0     1990    436  1990
+ 7 Kvinnur 0     1991    445  1991
+ 8 Kvinnur 0     1992    438  1992
+ 9 Kvinnur 0     1993    388  1993
+10 Kvinnur 0     1994    369  1994
+# ℹ 8,272 more rows</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>4f1) For pedagogical reasons, we imported and transformed the data in several steps given in questions 4a)–e). However, we could have done it all in a single pipe sentence. Create one pipe sentence that combines these steps. Save the output in <code>folk</code> and display it.</p>
+</blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: 4f1</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># code here</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>folk <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/Folkatal_1985_2025.xlsx"</span>, <span class="at">skip =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fill</span>(Kyn, <span class="at">.direction =</span> <span class="st">"down"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Aldur =</span> <span class="fu">str_remove</span>(Aldur, <span class="st">" ár"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(Kyn, Aldur),</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Ár"</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Antal"</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_transform =</span> <span class="fu">list</span>(<span class="at">Antal =</span> as.character)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    Å<span class="at">r =</span> <span class="fu">as.integer</span>(Ár),</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Antal =</span> <span class="fu">as.integer</span>(Antal),</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Antal =</span> <span class="fu">replace_na</span>(Antal, <span class="dv">0</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `Antal = as.integer(Antal)`.
+Caused by warning:
+! NAs introduced by coercion</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: 4f1</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>folk</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8,282 × 5
+   Kyn     Aldur Ár    Antal    År
+   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;
+ 1 Kvinnur 0     1985    336  1985
+ 2 Kvinnur 0     1986    357  1986
+ 3 Kvinnur 0     1987    388  1987
+ 4 Kvinnur 0     1988    395  1988
+ 5 Kvinnur 0     1989    429  1989
+ 6 Kvinnur 0     1990    436  1990
+ 7 Kvinnur 0     1991    445  1991
+ 8 Kvinnur 0     1992    438  1992
+ 9 Kvinnur 0     1993    388  1993
+10 Kvinnur 0     1994    369  1994
+# ℹ 8,272 more rows</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>4f2) Ensure that your <code>tidy_folkatal</code> and <code>folk</code> objects are exactly equal. This can be checked with <code>identical(x, y)</code> from base R, which returns<code>TRUE</code> if <code>x</code> and <code>y</code> are exactly equal or <code>FALSE</code> if not. If you get <code>FALSE</code>, use, for example <code>all.equal(x, y)</code> from base R, which returns <code>TRUE</code> if <code>x</code> and <code>y</code> are nearly equal and reports differences if not. Then, correct your code in 4f1) until <code>identical()</code> in 4f2) returns <code>TRUE</code>. A more modern alternative is to use <code>waldo::compare()</code> from the <code>waldo</code> package to compare and to report differences, if any. Then, fix your code in 4f1) until <code>identical()</code> returns <code>TRUE</code> and <code>waldo::compare()</code> reports “No differences”.</p>
+</blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: 4f2</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># code here</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(tidy_folkatal, folk)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(tidy_folkatal, folk)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>waldo<span class="sc">::</span><span class="fu">compare</span>(tidy_folkatal, folk)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE
+[1] TRUE
+✔ No differences</code></pre>
+</div>
 </div>
 </section>
 

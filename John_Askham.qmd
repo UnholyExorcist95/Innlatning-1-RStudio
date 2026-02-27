@@ -74,21 +74,92 @@ tibble(folkatal)
 
 # code here
 
+# Eg eri ikki 100% sikkur í at eg havi gjørt hettar rætt
+# Men eg fái tað warnng í uppgávu orðingin sigur skal koma.
+tidy_folkatal <- folkatal |>
+  pivot_longer(
+    cols = -c(Kyn, Aldur),
+    names_to = "Ár",
+    values_to = "Antal",
+    values_transform = list(Antal = as.character)) |>
+    mutate(
+    År = as.integer(Ár),
+    Antal = as.integer(Antal)
+  )
 
-#tidy_folkatal <- folkatal |>
-  
+tidy_folkatal
+
 ```
 
+> 4e) Note that some cells initially contained a dash `-` used by the data provider to denote "Veruliga null (ikki rundað)", i.e., zero values. In 4d), the cells containing a dash were automatically coerced to `NA`, which produced the warnings: "Warning: NAs introduced by coercion". Here, however, these values should be set to zero. Therefore, use a replacement function from `tidyr` to replace all `NA` in column `Antal` with `0`. Save the result in an updated `tidy_folkatal` and display it.
+
 ```{r}
+#| label: 4e
+#| echo: fenced
+
+# code here
+# Did this to double check the amount of "NA" within the table
+sum(is.na(tidy_folkatal$Antal))
+
+tidy_folkatal |> 
+  filter(is.na(Antal))
+
+
+tidy_folkatal <- tidy_folkatal |>
+  mutate(Antal = replace_na(Antal, 0))
+
+
+sum(is.na(tidy_folkatal$Antal))
+
+tidy_folkatal |> 
+  filter(is.na(Antal))
+
+tidy_folkatal
+```
+
+> 4f1) For pedagogical reasons, we imported and transformed the data in several steps given in questions 4a)–e). However, we could have done it all in a single pipe sentence. Create one pipe sentence that combines these steps. Save the output in `folk` and display it.
+
+```{r}
+#| label: 4f1
+#| echo: fenced
+
+# code here
+
+
+
+folk <- read_excel("data/Folkatal_1985_2025.xlsx", skip = 1) |>
+  fill(Kyn, .direction = "down") |>
+  mutate(Aldur = str_remove(Aldur, " ár")) |>
+  pivot_longer(
+    cols = -c(Kyn, Aldur),
+    names_to = "Ár",
+    values_to = "Antal",
+    values_transform = list(Antal = as.character)
+  ) |>
+  mutate(
+    År = as.integer(Ár),
+    Antal = as.integer(Antal),
+    Antal = replace_na(Antal, 0)
+  )
+
+folk
 
 ```
 
-```{r}
-
-```
+> 4f2) Ensure that your `tidy_folkatal` and `folk` objects are exactly equal. This can be checked with `identical(x, y)` from base R, which returns`TRUE` if `x` and `y` are exactly equal or `FALSE` if not. If you get `FALSE`, use, for example `all.equal(x, y)` from base R, which returns `TRUE` if `x` and `y` are nearly equal and reports differences if not. Then, correct your code in 4f1) until `identical()` in 4f2) returns `TRUE`. A more modern alternative is to use `waldo::compare()` from the `waldo` package to compare and to report differences, if any. Then, fix your code in 4f1) until `identical()` returns `TRUE` and `waldo::compare()` reports "No differences".
 
 ```{r}
+#| label: 4f2
+#| echo: fenced
 
+# code here
+
+
+identical(tidy_folkatal, folk)
+
+all.equal(tidy_folkatal, folk)
+
+waldo::compare(tidy_folkatal, folk)
 ```
 
 ```{r}

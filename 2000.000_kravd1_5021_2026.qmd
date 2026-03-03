@@ -182,8 +182,7 @@ kable(table_1f,
 > How do the boxplots in 1d) and 1e) compare with the table in 1f)?
 
 ::: {.callout-tip title="Text answer to 1f"}
-Write your answer here.
-The boxplots in 1d) and 1e) match well with the table in 1f. The statistics min, Q1, median, Q3, and max from the table are very similar to what is shown in the boxplots. 
+Write your answer here. The boxplots in 1d) and 1e) match well with the table in 1f. The statistics min, Q1, median, Q3, and max from the table are very similar to what is shown in the boxplots.
 :::
 
 ## Exercise 2
@@ -259,7 +258,7 @@ summary(lm_spec)
 -   The “Residuals:” in the summary output can be used as a quick check of the distribution assumption. Does the “Residuals:” section in this case indicate any problems? Explain your reasoning.
 
 ::: {.callout-tip title="Text answer to 2c)"}
-No, the residuals are very symmetric. The median is close to 0, and the min, 1Q, 3Q, and Max are symmetric.
+Write your answer here.
 :::
 
 > 2d) Create an `lm_regr` object to contain predictions and residuals for the model `lm_spec` and display the object `lm_regr`.
@@ -319,7 +318,7 @@ ggplot(lm_regr, aes(sample = residual)) +
 > 2f) From your three plots in 2e), try to make your best estimate of how well the assumptions for using linear regression are fulfilled in our analysis of the model `lm_spec`.
 
 ::: {.callout-tip title="Text answer to 2f"}
-The assumptions using learn regression are well fulfilled in the analysis of the model "lm_spec". This is demonstrated most clearly in figure 2e.2 where the box in the boxplot is symmetrically placed around where the residual axis equals 0. This is further shown in 2e.3, most of the points fall on the line, and the points in 2e.1 are also decently symmetrically placed. 
+Write your answer here.
 :::
 
 ## Exercise 3
@@ -331,8 +330,6 @@ The assumptions using learn regression are well fulfilled in the analysis of the
 #| echo: fenced
 
 # code here
-ggplot(top_scorers, aes(x = Efficiency)) +
-  geom_density()
 ```
 
 > 3b) Use `ggplot()` and the data in `top_scorers` to create a histogram of the variable `Efficiency`. After displaying the default histogram, adjust the bins by selecting an appropriate number of bins, or by setting an appropriate binwidth (whichever you think works best).
@@ -342,8 +339,6 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
-ggplot(top_scorers, aes(x = Efficiency)) +
-  geom_histogram(bins = 30)
 ```
 
 > 3c) Use `ggplot()` and the data in `top_scorers` to overlay a density plot on the histogram of the variable `Efficiency` (tip: this can be a bit tricky to plot. Check the documentation or online resources to see how to make the bars of the histogram density-based before overlaying the density curve. Finally, adjust the bins or bin width of the density-based histogram to get the density curve to best fit the tops of the histogram bars).
@@ -353,9 +348,6 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
-ggplot(top_scorers, aes(x = Efficiency)) +
-  geom_histogram(aes(y = after_stat(density)), color = "white", binwidth = 4) +
-  geom_density(color = "green")
 ```
 
 > 3d) Use `ggplot()` and the data in `top_scorers` to create a density plot of the variable `Efficiency`, faceted by a combined text string containing `Sex` and `Year`, displayed with the two facets in a single column (one facet above the other).
@@ -365,11 +357,6 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
-ggplot(top_scorers, aes(x = Efficiency)) +
-  facet_wrap(~ paste(Sex, Year), ncol = 1)
-  geom_density()
-
-
 ```
 
 > 3e) Use `ggplot()` and the data in `top_scorers` to create a histogram of the variable `Efficiency`, faceted by a combined text string containing `Sex` and `Year`, displayed with the two facets in a single column (one facet above the other). After displaying the default histogram, adjust the bins by selecting an appropriate number of bins, or by setting an appropriate binwidth (whichever you think works best).

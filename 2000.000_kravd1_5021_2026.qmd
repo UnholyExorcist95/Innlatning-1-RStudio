@@ -365,8 +365,8 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 
 # code here
 ggplot(top_scorers, aes(x = Efficiency)) +
+  geom_density() +
   facet_wrap(~ paste(Sex, Year), ncol = 1)
-  geom_density()
 
 
 ```
@@ -378,6 +378,9 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
+ggplot(top_scorers, aes(x = Efficiency)) +
+  geom_histogram(binwidth = 3) +
+  facet_wrap(~ paste(Sex, Year), ncol = 1)
 ```
 
 > 3f) Use `ggplot()` and the data in `top_scorers` to overlay a density plot on the faceted histogram of the variable `Efficiency` in 3e). Adjust the bins or binwidth of the density-based histogram to get the density curve to best fit the tops of the histogram bars.
@@ -387,6 +390,10 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
+ggplot(top_scorers, aes(x = Efficiency)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 3) +
+  facet_wrap(~ paste(Sex, Year), ncol = 1) +
+  geom_density(color = "green")
 ```
 
 ## Exercise 4

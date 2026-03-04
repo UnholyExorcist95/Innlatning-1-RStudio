@@ -162,14 +162,90 @@ all.equal(tidy_folkatal, folk)
 waldo::compare(tidy_folkatal, folk)
 ```
 
+## Exercise 5
+
+> In this exercise, the variables are in the Faroese language, and you can also use Faroese for the plot titles.
+
+> 5a) Summarise `folk` grouped by `Ár` to find the total population `Fólkatal` for each year. Save the result in `arligt_folkatal` and display it.
+
 ```{r}
+#| label: 5a
+#| echo: fenced
+
+# code here
+```
+
+> 5b) Use `ggplot()` to create a linegraph of `Fólkatal` versus `Ár` in `arligt_folkatal`. Also, include the data points.
+
+```{r}
+#| label: 5b
+#| echo: fenced
+
+# code here
+```
+
+> 5c) Summarise `folk` grouped by `Ár` and `Kyn` to find the total population `Fólkatal` for each `Ár` and for each `Kyn`. Save the result in `kyn_folkatal` and display it.
+
+```{r}
+#| label: 5c
+#| echo: fenced
+
+# code here
+```
+
+> 5d) Use `ggplot()` to create a linegraph of `Fólkatal` versus `Ár` in `kyn_folkatal` so that you get two curves - one for each `Kyn`. Also, include the data points for each `Kyn`. To obtain a single legend, map the color of the lines to `Kyn`, and map both the color and shape of the points to `Kyn`. Use `scale_color_manual()` to set the color for "Menn" to "blue" and for "Kvinnur" to "red".
+
+```{r}
+#| label: 5d
+#| echo: fenced
+
+# code here
 
 ```
 
+> 5e) Reuse the plot code you created in 5d). Add a similar curve of `Fólkatal` versus `Ár` from `arligt_folkatal` so that you get three curves in total - the previous two curves of `Fólkatal` per `Kyn`, described in the legend, and one additional curve of `Fólkatal` for the total population. We also want to include the third curve in the same legend. However, there is no column `Kyn` in `arligt_folkatal`. Therefore, for the curve of `Fólkatal` representing the total population, you cannot map color or shape to `Kyn`. Instead, map color and shape to the text "Bæði" to create an additional entry in the legend describing the total population. Modify `scale_color_manual()` in the plot code to define the colors for "Bæði", "Menn", and "Kvinnur" as "black", "blue", and "red", respectively.
+
 ```{r}
+#| label: 5e
+#| echo: fenced
+
+# code here
+```
+
+> 5f1) `kyn_folkatal` has the columns `Ár, Kyn, Fólkatal`, while `arligt_folkatal` only has the columns `Ár, Fólkatal`. Pipe `arligt_folkatal` into the same structure as `kyn_folkatal`. Add a column `Kyn` with the value "Bæði", reorder the columns, and bind it to `kyn_folkatal`. Save the output as `alt_folkatal` and display it. Check that it has the columns `Ár, Kyn, Fólkatal` with data types `int, chr, int`, respectively, and that the number of rows equals the number of rows in `kyn_folkatal` plus the number of rows in `arligt_folkatal`.
+
+```{r}
+#| label: 5f1
+#| echo: fenced
+
+# code here
+```
+
+> 5f2) Simplify your plot code from 5e) by using only `alt_folkatal` as the data source to create a plot identical to the one in 5e).
+
+```{r}
+#| label: 5f2
+#| echo: fenced
+
+# code here
 
 ```
 
+> 5f3) Now, we want to change the order of the legend text. Convert the `Kyn` column in `alt_folkatal` to a factor variable with levels "Bæði", "Menn", "Kvinnur". Save the changes in an updated `alt_folkatal` and display it. Check that it now has the columns `Ár, Kyn, Fólkatal` with data types `int, fctr, int`, respectively.
+
 ```{r}
+#| label: 5f3
+#| echo: fenced
+
+# code here
+```
+
+> 5f4) Run the exact same code as in 5f2) using the updated `alt_folkatal`. Note what changed as compared to the plot in 5f2)?
+
+```{r}
+#| label: 5f4
+#| echo: fenced
+
+# code here
 
 ```

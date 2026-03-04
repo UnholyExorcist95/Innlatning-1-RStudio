@@ -215,18 +215,10 @@ ggplot(top_scorers, aes(x = Shots, y = Efficiency, color = Sex)) +
 #| echo: fenced
 
 # code here
-ggplot(top_scorers, aes(x = Shots, y = Efficiency, color = Sex)) +
+ggplot(top_scorers, aes(x = Shots, y = Efficiency)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  facet_wrap(~ paste(Sex, Year)) +
-  labs(
-    x = "Shots",
-    y = "Efficiency",
-    title = "Figure 1b: Top Scorers EHF Euro – Efficiency vs Shots",
-    color = NULL,
-    shape = NULL
-  )
-
+  facet_wrap(~ paste(Sex, Year)) 
 ```
 
 > 2c) In the following, you will explore a linear regression model of the data in `top_scorers`, assuming that the same linear trend exists between `Efficiency` and `Shots` regardless of `Sex`. Therefore, we do not distinguish between men and women in the linear regression model.

@@ -7,8 +7,9 @@ editor: visual
 ---
 
 ::: {.callout-tip title="Write your full name (if individual) or names (if group work) here"}
--   name 1
--   name 2, etc
+-   Magnus Hansen
+-   John Askham
+-   Hanus Løwe
 :::
 
 ::: {.callout-tip title="Note"}

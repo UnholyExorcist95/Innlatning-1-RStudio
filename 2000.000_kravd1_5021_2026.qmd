@@ -7,7 +7,7 @@ editor: visual
 ---
 
 ::: {.callout-tip title="Write your full name (if individual) or names (if group work) here"}
--   name 1
+-   John Askham
 -   name 2, etc
 :::
 
@@ -182,8 +182,7 @@ kable(table_1f,
 > How do the boxplots in 1d) and 1e) compare with the table in 1f)?
 
 ::: {.callout-tip title="Text answer to 1f"}
-Write your answer here.
-The boxplots in 1d) and 1e) match well with the table in 1f. The statistics min, Q1, median, Q3, and max from the table are very similar to what is shown in the boxplots. 
+Write your answer here. The boxplots in 1d) and 1e) match well with the table in 1f. The statistics min, Q1, median, Q3, and max from the table are very similar to what is shown in the boxplots.
 :::
 
 ## Exercise 2
@@ -319,7 +318,7 @@ ggplot(lm_regr, aes(sample = residual)) +
 > 2f) From your three plots in 2e), try to make your best estimate of how well the assumptions for using linear regression are fulfilled in our analysis of the model `lm_spec`.
 
 ::: {.callout-tip title="Text answer to 2f"}
-The assumptions using learn regression are well fulfilled in the analysis of the model "lm_spec". This is demonstrated most clearly in figure 2e.2 where the box in the boxplot is symmetrically placed around where the residual axis equals 0. This is further shown in 2e.3, most of the points fall on the line, and the points in 2e.1 are also decently symmetrically placed. 
+The assumptions using learn regression are well fulfilled in the analysis of the model "lm_spec". This is demonstrated most clearly in figure 2e.2 where the box in the boxplot is symmetrically placed around where the residual axis equals 0. This is further shown in 2e.3, most of the points fall on the line, and the points in 2e.1 are also decently symmetrically placed.
 :::
 
 ## Exercise 3
@@ -399,6 +398,10 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
+
+folkatal <- read_excel("data/Folkatal_1985_2025.xlsx", skip = 1)
+
+folkatal
 ```
 
 > 4b) Note that many cells in column `Kyn` are `NA`. This is because R assumes empty cells in the Excel file to be `NA` (missing values). In this case, however, these cells are empty because the data provider only fills the first cell of the column until the value changes. Therefore, these are not truly missing values and should be filled. Pipe the imported data `folkatal` into a fill function from the `tidyr` package to fill the `NA` cells of column `Kyn` with the correct values. Save your results in an updated object `folkatal` and display it.
@@ -408,6 +411,12 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
+
+folkatal <- folkatal |>
+  fill(Kyn, .direction = "down")
+
+kable(folkatal)
+
 ```
 
 > 4c) Note that the column `Aldur` in `folkatal` is of type `chr` and contains numbers and text. Use a pipe and `mutate()` together with a string replacement function from `stringr` to modify the column so that it contains only the numbers. Save your results in an updated object `folkatal` and display it. Check that the type of column `Aldur` is still `chr` and do not change it here.
@@ -417,6 +426,11 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
+
+folkatal <- folkatal |>
+  mutate(Aldur = str_remove(Aldur, " ár"))
+
+tibble(folkatal)
 ```
 
 > 4d) Next, consider the many columns that contain years as column names, of both type `chr` and `dbl`. Tidy the `folkatal` object by using a pivot function from the `tidyr` package, ensuring that you get two new columns, `Ár` and `Antal`, both of type `integer`. Note the warnings: "Warning: NAs introduced by coercion", that you will handle in the next question. Save your results in a new object `tidy_folkatal` and display it.
@@ -426,6 +440,18 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
+tidy_folkatal <- folkatal |>
+  pivot_longer(
+    cols = -c(Kyn, Aldur),
+    names_to = "Ár",
+    values_to = "Antal",
+    values_transform = list(Antal = as.character)) |>
+    mutate(
+    År = as.integer(Ár),
+    Antal = as.integer(Antal)
+  )
+
+tidy_folkatal
 ```
 
 > 4e) Note that some cells initially contained a dash `-` used by the data provider to denote "Veruliga null (ikki rundað)", i.e., zero values. In 4d), the cells containing a dash were automatically coerced to `NA`, which produced the warnings: "Warning: NAs introduced by coercion". Here, however, these values should be set to zero. Therefore, use a replacement function from `tidyr` to replace all `NA` in column `Antal` with `0`. Save the result in an updated `tidy_folkatal` and display it.
@@ -435,6 +461,22 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
+sum(is.na(tidy_folkatal$Antal))
+
+tidy_folkatal |> 
+  filter(is.na(Antal))
+
+
+tidy_folkatal <- tidy_folkatal |>
+  mutate(Antal = replace_na(Antal, 0))
+
+
+sum(is.na(tidy_folkatal$Antal))
+
+tidy_folkatal |> 
+  filter(is.na(Antal))
+
+tidy_folkatal
 ```
 
 > 4f1) For pedagogical reasons, we imported and transformed the data in several steps given in questions 4a)–e). However, we could have done it all in a single pipe sentence. Create one pipe sentence that combines these steps. Save the output in `folk` and display it.
@@ -444,6 +486,23 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
+
+folk <- read_excel("data/Folkatal_1985_2025.xlsx", skip = 1) |>
+  fill(Kyn, .direction = "down") |>
+  mutate(Aldur = str_remove(Aldur, " ár")) |>
+  pivot_longer(
+    cols = -c(Kyn, Aldur),
+    names_to = "Ár",
+    values_to = "Antal",
+    values_transform = list(Antal = as.character)
+  ) |>
+  mutate(
+    År = as.integer(Ár),
+    Antal = as.integer(Antal),
+    Antal = replace_na(Antal, 0)
+  )
+
+folk
 ```
 
 > 4f2) Ensure that your `tidy_folkatal` and `folk` objects are exactly equal. This can be checked with `identical(x, y)` from base R, which returns`TRUE` if `x` and `y` are exactly equal or `FALSE` if not. If you get `FALSE`, use, for example `all.equal(x, y)` from base R, which returns `TRUE` if `x` and `y` are nearly equal and reports differences if not. Then, correct your code in 4f1) until `identical()` in 4f2) returns `TRUE`. A more modern alternative is to use `waldo::compare()` from the `waldo` package to compare and to report differences, if any. Then, fix your code in 4f1) until `identical()` returns `TRUE` and `waldo::compare()` reports "No differences".
@@ -453,6 +512,12 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
+
+identical(tidy_folkatal, folk)
+
+all.equal(tidy_folkatal, folk)
+
+waldo::compare(tidy_folkatal, folk)
 ```
 
 ## Exercise 5

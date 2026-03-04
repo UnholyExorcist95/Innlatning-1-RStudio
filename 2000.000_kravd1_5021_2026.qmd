@@ -7,7 +7,7 @@ editor: visual
 ---
 
 ::: {.callout-tip title="Write your full name (if individual) or names (if group work) here"}
--   John Askham
+-   name 1
 -   name 2, etc
 :::
 
@@ -398,7 +398,6 @@ ggplot(top_scorers, aes(x = Efficiency)) +
 #| echo: fenced
 
 # code here
-
 folkatal <- read_excel("data/Folkatal_1985_2025.xlsx", skip = 1)
 
 folkatal
@@ -411,12 +410,10 @@ folkatal
 #| echo: fenced
 
 # code here
-
 folkatal <- folkatal |>
   fill(Kyn, .direction = "down")
 
 kable(folkatal)
-
 ```
 
 > 4c) Note that the column `Aldur` in `folkatal` is of type `chr` and contains numbers and text. Use a pipe and `mutate()` together with a string replacement function from `stringr` to modify the column so that it contains only the numbers. Save your results in an updated object `folkatal` and display it. Check that the type of column `Aldur` is still `chr` and do not change it here.
@@ -431,6 +428,7 @@ folkatal <- folkatal |>
   mutate(Aldur = str_remove(Aldur, " ár"))
 
 tibble(folkatal)
+
 ```
 
 > 4d) Next, consider the many columns that contain years as column names, of both type `chr` and `dbl`. Tidy the `folkatal` object by using a pivot function from the `tidyr` package, ensuring that you get two new columns, `Ár` and `Antal`, both of type `integer`. Note the warnings: "Warning: NAs introduced by coercion", that you will handle in the next question. Save your results in a new object `tidy_folkatal` and display it.
@@ -512,6 +510,7 @@ folk
 #| echo: fenced
 
 # code here
+
 
 identical(tidy_folkatal, folk)
 

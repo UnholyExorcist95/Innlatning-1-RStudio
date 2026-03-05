@@ -590,7 +590,7 @@ ggplot(kyn_folkatal, aes(Ár, Fólkatal, colour = Kyn, shape = Kyn, group = Kyn)
   geom_point() +
   geom_line(data = arligt_folkatal, aes(Ár, Fólkatal, colour = "Bæði", shape = "Bæði", group = 1)) +
   scale_color_manual(values = c("Menn" = "blue", "Kvinnur" = "red", "Bæði" = "black")) + 
-  labs(title = "Linjugrafur ")
+  labs(title = "Figur 5e: Linjugrafur fyri fólkatal av monnum, kvinnum og fólkatal tilsamans")
 ```
 
 > 5f1) `kyn_folkatal` has the columns `Ár, Kyn, Fólkatal`, while `arligt_folkatal` only has the columns `Ár, Fólkatal`. Pipe `arligt_folkatal` into the same structure as `kyn_folkatal`. Add a column `Kyn` with the value "Bæði", reorder the columns, and bind it to `kyn_folkatal`. Save the output as `alt_folkatal` and display it. Check that it has the columns `Ár, Kyn, Fólkatal` with data types `int, chr, int`, respectively, and that the number of rows equals the number of rows in `kyn_folkatal` plus the number of rows in `arligt_folkatal`.
@@ -619,7 +619,8 @@ alt_folkatal
 ggplot(alt_folkatal, aes(Ár, Fólkatal, colour = Kyn, shape = Kyn, group = Kyn)) +
   geom_line() +
   geom_point() +
-  scale_color_manual(values = c("Bæði" = "black", "Menn" = "blue", "Kvinnur" = "red"))
+  scale_color_manual(values = c("Bæði" = "black", "Menn" = "blue", "Kvinnur" = "red")) + 
+  labs(title = "Figur 5f2: Linjugrafur fyri fólkatal av monnum, kvinnum og fólkatal tilsamans")
 ```
 
 > 5f3) Now, we want to change the order of the legend text. Convert the `Kyn` column in `alt_folkatal` to a factor variable with levels "Bæði", "Menn", "Kvinnur". Save the changes in an updated `alt_folkatal` and display it. Check that it now has the columns `Ár, Kyn, Fólkatal` with data types `int, fctr, int`, respectively.
@@ -645,7 +646,8 @@ alt_folkatal
 ggplot(alt_folkatal, aes(Ár, Fólkatal, colour = Kyn, shape = Kyn, group = Kyn)) +
   geom_line() +
   geom_point() +
-  scale_color_manual(values = c("Bæði" = "black", "Menn" = "blue", "Kvinnur" = "red"))
+  scale_color_manual(values = c("Bæði" = "black", "Menn" = "blue", "Kvinnur" = "red")) + 
+  labs(title = "Figur 5f4: Linjugrafur fyri fólkatal av monnum, kvinnum og fólkatal tilsamans")
 ```
 
 ::: {.callout-tip title="Text answer to 5f4"}

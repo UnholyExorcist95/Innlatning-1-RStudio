@@ -651,5 +651,5 @@ ggplot(alt_folkatal, aes(Ár, Fólkatal, colour = Kyn, shape = Kyn, group = Kyn)
 ```
 
 ::: {.callout-tip title="Text answer to 5f4"}
-Write your answer here.
+The only difference between 5f2 and 5f4 is that the order of the legend has changed. In 5f2 the order is "Bæði", Kvinnur", and "Menn", and in 5f4 the order is "Bæði", "Menn", and "Kvinnur".
 :::

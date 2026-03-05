@@ -547,7 +547,8 @@ arligt_folkatal
 # code here
 ggplot(arligt_folkatal, aes(Ár, Fólkatal, group = 1)) +
   geom_line(color = "red", linewidth = 1) + 
-  geom_point()
+  geom_point() + 
+  labs(title = "Figure 5b: Linjugrafur fyri fólkatal frá 1895 til 2025")
 ```
 
 > 5c) Summarise `folk` grouped by `Ár` and `Kyn` to find the total population `Fólkatal` for each `Ár` and for each `Kyn`. Save the result in `kyn_folkatal` and display it.
@@ -573,7 +574,8 @@ kyn_folkatal
 ggplot(kyn_folkatal, aes(Ár, Fólkatal, colour = Kyn, shape = Kyn, group = Kyn)) +
   geom_line() +
   geom_point() +
-  scale_color_manual(values = c("Menn" = "blue", "Kvinnur" = "red"))
+  scale_color_manual(values = c("Menn" = "blue", "Kvinnur" = "red")) + 
+  labs(title = "Linjugrafur fyri fólkatal av monnum og kvinnum frá 1985 til 2025")
 ```
 
 > 5e) Reuse the plot code you created in 5d). Add a similar curve of `Fólkatal` versus `Ár` from `arligt_folkatal` so that you get three curves in total - the previous two curves of `Fólkatal` per `Kyn`, described in the legend, and one additional curve of `Fólkatal` for the total population. We also want to include the third curve in the same legend. However, there is no column `Kyn` in `arligt_folkatal`. Therefore, for the curve of `Fólkatal` representing the total population, you cannot map color or shape to `Kyn`. Instead, map color and shape to the text "Bæði" to create an additional entry in the legend describing the total population. Modify `scale_color_manual()` in the plot code to define the colors for "Bæði", "Menn", and "Kvinnur" as "black", "blue", and "red", respectively.
@@ -587,7 +589,8 @@ ggplot(kyn_folkatal, aes(Ár, Fólkatal, colour = Kyn, shape = Kyn, group = Kyn)
   geom_line() +
   geom_point() +
   geom_line(data = arligt_folkatal, aes(Ár, Fólkatal, colour = "Bæði", shape = "Bæði", group = 1)) +
-  scale_color_manual(values = c("Menn" = "blue", "Kvinnur" = "red", "Bæði" = "black"))
+  scale_color_manual(values = c("Menn" = "blue", "Kvinnur" = "red", "Bæði" = "black")) + 
+  labs(title = "Linjugrafur ")
 ```
 
 > 5f1) `kyn_folkatal` has the columns `Ár, Kyn, Fólkatal`, while `arligt_folkatal` only has the columns `Ár, Fólkatal`. Pipe `arligt_folkatal` into the same structure as `kyn_folkatal`. Add a column `Kyn` with the value "Bæði", reorder the columns, and bind it to `kyn_folkatal`. Save the output as `alt_folkatal` and display it. Check that it has the columns `Ár, Kyn, Fólkatal` with data types `int, chr, int`, respectively, and that the number of rows equals the number of rows in `kyn_folkatal` plus the number of rows in `arligt_folkatal`.
@@ -598,9 +601,11 @@ ggplot(kyn_folkatal, aes(Ár, Fólkatal, colour = Kyn, shape = Kyn, group = Kyn)
 
 # code here
 alt_folkatal <- arligt_folkatal %>% 
-  mutate(Kyn = "Bæði") %>% 
+  mutate(Kyn = "Bæði") %>%
   select(Ár, Kyn, Fólkatal) %>% 
   bind_rows(kyn_folkatal)
+alt_folkatal <- alt_folkatal %>% 
+  mutate(Ár = as.integer(Ár))
 alt_folkatal
 ```
 

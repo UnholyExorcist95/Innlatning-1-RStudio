@@ -78,8 +78,6 @@ top_women <- top_women %>%
     
   )
 
-#top_men
-#top_women 
 
 top_scorers <- bind_rows(top_men,top_women)
 top_scorers
@@ -124,7 +122,7 @@ ggplot(data = top_scorers, mapping = aes(x = Goals/Matches)) +
 labs(
     x = "Goals per Match",
     y = "Count of Top Scorers",
-    title = "Figure 1c: Top Scorers EHF Euro – Goals per match"
+    title = "Figure 1c: Top Scorers EHF Euro – Distribution of topscorers"
 )
 ```
 
@@ -183,7 +181,7 @@ kable(table_1f,
 > How do the boxplots in 1d) and 1e) compare with the table in 1f)?
 
 ::: {.callout-tip title="Text answer to 1f"}
-Write your answer here. The boxplots in 1d) and 1e) match well with the table in 1f. The statistics min, Q1, median, Q3, and max from the table are very similar to what is shown in the boxplots.
+Write your answer here. The boxplots in 1d) and 1e) match well with the table in 1f. The values for min, Q1, median, Q3, and max from the summary statistics are very similar to what is illustrated in the boxplots where men 2026 have higher values in efficiency and goal per match than women 2024.
 :::
 
 ## Exercise 2

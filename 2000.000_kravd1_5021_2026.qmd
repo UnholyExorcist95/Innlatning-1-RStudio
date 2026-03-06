@@ -493,7 +493,7 @@ folk <- read_excel("data/Folkatal_1985_2025.xlsx", skip = 1) |>
     values_transform = list(Antal = as.character)
   ) |>
   mutate(
-    År = as.integer(Ár),
+    Ár = as.integer(Ár),
     Antal = as.integer(Antal),
     Antal = replace_na(Antal, 0)
   )

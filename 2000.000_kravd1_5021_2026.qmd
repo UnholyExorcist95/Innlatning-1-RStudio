@@ -122,7 +122,7 @@ ggplot(data = top_scorers, mapping = aes(x = Goals/Matches)) +
 labs(
     x = "Goals per Match",
     y = "Count of Top Scorers",
-    title = "Figure 1c: Top Scorers EHF Euro – Goals per match"
+    title = "Figure 1c: Top Scorers EHF Euro – Distribution of topscorers"
 )
 ```
 

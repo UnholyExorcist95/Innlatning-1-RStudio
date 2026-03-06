@@ -309,7 +309,7 @@ ggplot(lm_regr, aes(sample = residual)) +
 > 2f) From your three plots in 2e), try to make your best estimate of how well the assumptions for using linear regression are fulfilled in our analysis of the model `lm_spec`.
 
 ::: {.callout-tip title="Text answer to 2f"}
-The assumptions using learn regression are well fulfilled in the analysis of the model "lm_spec". This is demonstrated most clearly in figure 2e.2 where the box in the boxplot is symmetrically placed around where the residual axis equals 0. This is further shown in 2e.3, most of the points fall on the line, and the points in 2e.1 are also decently symmetrically placed.
+The assumptions using learn regression are well fulfilled in the analysis of the model "lm_spec". This is demonstrated most clearly in figure 2e.2 where the box in the boxplot is symmetrically placed around where the residual axis equals 0. This is further shown in 2e.3 where most of the points fall on the line, and the points in 2e.1 are also decently symmetrically placed.
 :::
 
 ## Exercise 3
@@ -443,7 +443,7 @@ tidy_folkatal <- folkatal |>
     values_to = "Antal",
     values_transform = list(Antal = as.character)) |>
     mutate(
-    År = as.integer(Ár),
+    Ár = as.integer(Ár),
     Antal = as.integer(Antal)
   )
 

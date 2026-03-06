@@ -78,8 +78,6 @@ top_women <- top_women %>%
     
   )
 
-#top_men
-#top_women 
 
 top_scorers <- bind_rows(top_men,top_women)
 top_scorers

@@ -114,8 +114,8 @@ ggplot(top_scorers, aes(x = Shots, y = Efficiency)) +
 #| echo: fenced
 
 # code here
-ggplot(data = top_scorers, mapping = aes(x = Goals/Matches)) +
-  geom_histogram(color = "white", bins = 20) +
+ggplot(data = top_scorers, mapping = aes(x = Efficiency/Shots)) +
+  geom_histogram(color = "white", bins = 5) +
   facet_wrap(~ paste(Sex, Year)) +
   scale_x_continuous(breaks = seq(0, 10, by = 1)) +
   scale_y_continuous(breaks = seq(0, 10, by = 2)) +
